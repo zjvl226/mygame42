@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>SIGN IN</title>
+
+  <link rel="stylesheet" type="text/css" href="../css/materialize.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://npmcdn.com/parse@2.1.0/dist/parse.js"></script>
+  <!-- <script type="text/javascript" src="js/parse.js"></script> -->
+
+ 
+</head>
+
+<body>
+	<div class="container">
+     <ul class="collection with-header col s3">
+      <li class="collection-header"><h4>Game Ranking</h4></li>
+     </ul>
+     <ol id="addli" class="collection with-header col s3">
+     </ol>
+  </div>
+	
+	<script type="text/javascript">
+        Parse.initialize("김예림");
+        Parse.serverURL="https://dry-lowlands-87959.herokuapp.com/parse"
+
+        var GameScore = Parse.Object.extend("GameScore");
+        var query = new Parse.Query(GameScore);
+        query.ascending("record");
+        query.find()
+        .then(function(results) {
+            for(var i = 0; i < results.length; i++) {
+                var result = results[i];
+                $("#addli").append("<li class='collection-item col s3'>" + result.get("playerName") + " => " + result.get("record") + ".sec" +"</div></li>")
+            }
+        })
+       
+	</script>
+
+</body>
+
+</html>

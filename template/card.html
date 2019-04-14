@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>짝맞추기</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://npmcdn.com/parse@2.1.0/dist/parse.js"></script>
+    <script src="../js/card.js"></script>
+    <style>
+        .card {
+            display: inline-block;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            width: 70px;
+            height: 100px;
+            perspective: 140px;
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front {
+            background-color : paleturquoise;
+            background-image: url('../img/moozi.png');
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid black;
+            backface-visibility: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="info" style="margin-bottom:10px">
+        <span id="id"></span>
+        <input type="button" value="LOGOUT" onclick="logout()">
+    </div>
+    <div id="wrapper"></div>
+    <div id="endgame" style="display:none;">
+        <input type="button" value="RETRY" onclick="retry()">
+        <input type="button" value="Ranking" onclick="showRanking()">
+    </div>
+    <script type="text/javascript">
+        Parse.initialize("김예림");
+        Parse.serverURL="https://dry-lowlands-87959.herokuapp.com/parse";
+        
+        $(document).ready(function() {
+            if(!Parse.User.current()) {
+                alert("Please after Login");
+                window.location = "signin.html"
+            }
+            else {
+                $("#id").html("Welcome! " + Parse.User.current().get("username") + " ");
+            }
+        })
+        shuffle();
+        settingCard(width, height);
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>SIGN UP</title>
+
+  <link rel="stylesheet" type="text/css" href="../css/materialize.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://npmcdn.com/parse@2.1.0/dist/parse.js"></script>
+
+  <script type="text/javascript">
+
+    function signup() {
+    	var id = $("#id").val();
+      var pw = $("#pw").val();
+      var email = $("#email").val();
+      var tel = $("#tel").val();
+
+      var user = new Parse.User();
+
+      user.set("username", id);
+      user.set("password", pw);
+      user.set("email", email);
+      user.set("phone", tel);
+
+      (async() => {
+      try {
+        await user.signUp();
+        alert("Success SignUp");
+        window.location = "signin.html";
+      } catch(error) {
+        alert("Error : " + error.code + " " + error.message);
+      }
+      })();
+    }
+
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="row">
+        <p style="margin: 0px margin-top: 10px">ID</p>
+        <div class="input-field col s6">
+          <input id="id" type="text" class="validate">
+        </div>
+      </div>
+      <div class="row">
+        <p style="margin: 0px">PW</p>
+        <div class="input-field col s6">
+          <input id="pw" type="password" class="validate">
+        </div>
+      </div>
+      <div class="row">
+        <p style="margin: 0px">EMAIL</p>
+        <div class="input-field col s6">
+          <input id="email" type="text" class="validate">
+        </div>
+      </div>
+      <div class="row">
+        <p style="margin: 0px">Tel.</p>
+        <div class="input-field col s6">
+          <input id="tel" type="text" class="validate">
+        </div>
+      </div>
+    </div>
+    <input class="waves-effect waves-light btn" type="button" value="SIGNUP" onclick="signup()">
+  </div>
+	
+	<script type="text/javascript">
+		Parse.initialize("김예림");
+    	Parse.serverURL = "https://dry-lowlands-87959.herokuapp.com/parse"
+	</script>
+
+</body>
+
+</html>

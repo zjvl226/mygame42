@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Ranking</title>
+
+  <link rel="stylesheet" type="text/css" href="../css/materialize.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://npmcdn.com/parse@2.1.0/dist/parse.js"></script>
+  <!-- <script type="text/javascript" src="js/parse.js"></script> -->
+
+ 
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="row">
+        <p style="margin: 0px margin-top: 10px">ID</p>
+        <div class="input-field col s6">
+          <input id="id" type="text" class="validate">
+        </div>
+      </div>
+      <div class="row">
+        <p style="margin: 0px">PW</p>
+        <div class="input-field col s6">
+          <input id="pw" type="password" class="validate">
+        </div>
+      </div>
+    </div>
+  	<input class="waves-effect waves-light btn" type="button" value="SIGNIN" onclick="signin()">
+  	<input class="waves-effect waves-light btn" type="button" value="SIGNUP" onclick="signup()">
+	</div>
+	<script type="text/javascript">
+		Parse.initialize("김예림");
+    Parse.serverURL="https://dry-lowlands-87959.herokuapp.com/parse"
+
+    function signin() {
+      var id = $("#id").val();
+      var pw = $("#pw").val();
+
+      if(Parse.User.current()) {
+        Parse.User.logOut();
+      }
+
+      Parse.User.logIn(id, pw)
+      .then((user) => {
+        alert("확인을 누르면 게임이 시작됩니다.");
+        window.location = "card.html";
+      }, (error) => {
+        alert("login error : " + error.message);
+      });
+    }
+
+    function signup() {
+    	 window.location = "signup.html";
+    }
+	</script>
+
+</body>
+</html>
